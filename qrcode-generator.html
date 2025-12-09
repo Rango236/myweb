@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二维码生成器 - 电商UX演示</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入qrcode.js库 -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <i class="fas fa-qrcode"></i>
+                <span>二维码访问</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- 主内容 -->
+    <main class="qrcode-container">
+        <section class="qrcode-hero">
+            <h1><i class="fas fa-mobile-alt"></i> 移动端扫码访问</h1>
+            <p class="subtitle">扫描二维码在手机上体验电商UX优化方案</p>
+        </section>
+
+        <section class="qrcode-generator">
+            <div class="qrcode-card">
+                <div class="qrcode-header">
+                    <h2><i class="fas fa-qrcode"></i> 生成访问二维码</h2>
+                    <p>输入您的部署URL或使用默认演示地址</p>
+                </div>
+                
+                <div class="qrcode-input-group">
+                    <input type="url" 
+                           id="urlInput" 
+                           placeholder="https://your-site.com"
+                           value="https://your-username.github.io/ecommerce-ux-demo/">
+                    <button id="generateBtn" class="btn-primary">
+                        <i class="fas fa-sync-alt"></i> 生成二维码
+                    </button>
+                </div>
+
+                <div class="qrcode-preview">
+                    <div class="qrcode-canvas" id="qrcodeCanvas"></div>
+                    
+                    <div class="qrcode-info">
+                        <h3>如何使用：</h3>
+                        <ol>
+                            <li>使用手机相机或微信扫描二维码</li>
+                            <li>在手机上查看电商UX优化演示</li>
+                            <li>测试不同模式的用户体验</li>
+                            <li>支持Safari、Chrome、微信等浏览器</li>
+                        </ol>
+                        
+                        <div class="download-options">
+                            <button id="downloadPNG" class="btn-secondary">
+                                <i class="fas fa-download"></i> 下载PNG
+                            </button>
+                            <button id="downloadSVG" class="btn-secondary">
+                                <i class="fas fa-download"></i> 下载SVG
+                            </button>
+                            <button id="printQR" class="btn-secondary">
+                                <i class="fas fa-print"></i> 打印
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="deployment-guide">
+            <h2><i class="fas fa-rocket"></i> 部署指南</h2>
+            
+            <div class="guide-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>选择部署平台</h3>
+                    <ul>
+                        <li><strong>GitHub Pages</strong> - 免费，适合演示</li>
+                        <li><strong>Netlify</strong> - 自动部署，HTTPS</li>
+                        <li><strong>Vercel</strong> - 速度快，支持预览</li>
+                        <li><strong>自行托管</strong> - 需要服务器</li>
+                    </ul>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>获取访问URL</h3>
+                    <ul>
+                        <li>GitHub Pages: username.github.io/repository</li>
+                        <li>Netlify: project-name.netlify.app</li>
+                        <li>Vercel: project-name.vercel.app</li>
+                        <li>自定义域名: your-domain.com</li>
+                    </ul>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>生成二维码</h3>
+                    <ul>
+                        <li>将URL输入上方生成器</li>
+                        <li>点击生成按钮</li>
+                        <li>下载或打印二维码</li>
+                        <li>分享给团队成员测试</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="testing-tips">
+            <h2><i class="fas fa-mobile-alt"></i> 移动端测试建议</h2>
+            
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>网络环境</h3>
+                    <p>确保手机和电脑在同一网络，或使用公开URL</p>
+                </div>
+                
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <h3>本地测试</h3>
+                    <p>使用IP地址: http://你的IP:8000 生成二维码</p>
+                </div>
+                
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>实时更新</h3>
+                    <p>代码更新后重新生成二维码</p>
+                </div>
+                
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-bug"></i>
+                    </div>
+                    <h3>问题排查</h3>
+                    <p>检查控制台错误，确保资源加载正常</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="preview-links">
+            <h2><i class="fas fa-external-link-alt"></i> 快速预览链接</h2>
+            
+            <div class="links-grid">
+                <a href="index.html" class="link-card" target="_blank">
+                    <div class="link-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>主页面</h3>
+                    <p>查看所有优化模式</p>
+                </a>
+                
+                <a href="senior-mode.html" class="link-card" target="_blank">
+                    <div class="link-icon">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <h3>长辈模式</h3>
+                    <p>测试无障碍设计</p>
+                </a>
+                
+                <a href="focus-mode.html" class="link-card" target="_blank">
+                    <div class="link-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>极速模式</h3>
+                    <p>体验高效购物</p>
+                </a>
+                
+                <a href="price-comparison.html" class="link-card" target="_blank">
+                    <div class="link-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>智能比价</h3>
+                    <p>价格追踪功能</p>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="qrcode-footer">
+        <div class="footer-content">
+            <p>电商UX优化演示 - 二维码访问系统</p>
+            <p>使用手机扫描二维码体验移动端效果</p>
+            <div class="footer-links">
+                <a href="index.html"><i class="fas fa-home"></i> 返回主页</a>
+                <a href="#" id="regenerateQR"><i class="fas fa-redo"></i> 重新生成</a>
+                <a href="#" id="copyURL"><i class="fas fa-copy"></i> 复制URL</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="qrcode-generator.js"></script>
+</body>
+</html>

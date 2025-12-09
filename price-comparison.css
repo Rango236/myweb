@@ -1,0 +1,1412 @@
+/* 智能比价模式样式 */
+:root {
+    /* 比价模式专用变量 */
+    --price-primary: #4CAF50;
+    --price-primary-light: #E8F5E9;
+    --price-secondary: #2196F3;
+    --price-accent: #FF6B00;
+    --price-warning: #FFC107;
+    --price-danger: #F44336;
+    
+    --price-bg: #F5F7FA;
+    --price-surface: #FFFFFF;
+    --price-surface-alt: #F8F9FA;
+    --price-border: #E0E0E0;
+    --price-border-light: #EEEEEE;
+    
+    --price-text: #212121;
+    --price-text-secondary: #666666;
+    --price-text-light: #999999;
+    
+    --price-radius: 12px;
+    --price-radius-sm: 8px;
+    --price-radius-lg: 16px;
+    
+    --price-spacing-xs: 8px;
+    --price-spacing-sm: 12px;
+    --price-spacing-md: 16px;
+    --price-spacing-lg: 24px;
+    --price-spacing-xl: 32px;
+    
+    --price-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --price-shadow-lg: 0 4px 20px rgba(0, 0, 0, 0.12);
+    --price-shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
+    
+    --price-transition: all 0.3s ease;
+}
+
+.price-comparison {
+    background: var(--price-bg);
+    color: var(--price-text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding-bottom: 20px;
+}
+
+/* 导航栏 */
+.price-nav {
+    background: var(--price-surface);
+    padding: var(--price-spacing-md) var(--price-spacing-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--price-shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-back {
+    display: flex;
+    align-items: center;
+    gap: var(--price-spacing-xs);
+    color: var(--price-primary);
+    text-decoration: none;
+    font-weight: 500;
+    padding: var(--price-spacing-xs) var(--price-spacing-sm);
+    border-radius: var(--price-radius-sm);
+    transition: var(--price-transition);
+}
+
+.nav-back:hover {
+    background: var(--price-primary-light);
+}
+
+.nav-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--price-text);
+    margin: 0;
+}
+
+.nav-help {
+    background: transparent;
+    border: none;
+    color: var(--price-text-secondary);
+    font-size: 20px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--price-transition);
+}
+
+.nav-help:hover {
+    background: var(--price-border-light);
+    color: var(--price-primary);
+}
+
+/* 搜索区域 */
+.search-section {
+    padding: var(--price-spacing-lg);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    margin-bottom: var(--price-spacing-xl);
+}
+
+.search-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.search-box {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: var(--price-radius-lg);
+    padding: var(--price-spacing-md);
+    display: flex;
+    align-items: center;
+    gap: var(--price-spacing-md);
+    box-shadow: var(--price-shadow-lg);
+}
+
+.search-box i {
+    color: var(--price-primary);
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.search-box input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    color: var(--price-text);
+    outline: none;
+    padding: var(--price-spacing-xs) 0;
+}
+
+.search-box input::placeholder {
+    color: var(--price-text-light);
+}
+
+.search-action {
+    background: var(--price-primary);
+    color: white;
+    border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--price-transition);
+    flex-shrink: 0;
+}
+
+.search-action:hover {
+    background: #43A047;
+    transform: scale(1.05);
+}
+
+.search-suggestions {
+    margin-top: var(--price-spacing-md);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--price-spacing-xs);
+}
+
+.search-suggestion {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: var(--price-spacing-xs) var(--price-spacing-md);
+    font-size: 12px;
+    cursor: pointer;
+    transition: var(--price-transition);
+}
+
+.search-suggestion:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+/* 主内容区域 */
+.price-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--price-spacing-lg);
+}
+
+/* 当前商品信息 */
+.current-product {
+    background: var(--price-surface);
+    border-radius: var(--price-radius-lg);
+    padding: var(--price-spacing-xl);
+    margin-bottom: var(--price-spacing-lg);
+    box-shadow: var(--price-shadow);
+}
+
+.product-header {
+    display: flex;
+    align-items: center;
+    gap: var(--price-spacing-lg);
+    margin-bottom: var(--price-spacing-lg);
+}
+
+.product-image {
+    width: 120px;
+    height: 120px;
+    border-radius: var(--price-radius);
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-info {
+    flex: 1;
+}
+
+.product-info h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 var(--price-spacing-sm) 0;
+    color: var(--price-text);
+}
+
+.product-tags {
+    display: flex;
+    gap: var(--price-spacing-xs);
+}
+
+.tag {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.tag.hot {
+    background: #FFEBEE;
+    color: #F44336;
+}
+
+.tag.discount {
+    background: #FFF3E0;
+    color: #FF6B00;
+}
+
+.tag.best-price {
+    background: #E8F5E9;
+    color: #4CAF50;
+}
+
+.price-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--price-spacing-lg);
+    background: var(--price-surface-alt);
+    padding: var(--price-spacing-lg);
+    border-radius: var(--price-radius);
+}
+
+.current-price,
+.price-change,
+.save-amount {
+    text-align: center;
+}
+
+.current-price .label,
+.price-change .label,
+.save-amount .label {
+    display: block;
+    font-size: 14px;
+    color: var(--price-text-secondary);
+    margin-bottom: var(--price-spacing-xs);
+}
+
+.current-price .value {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--price-primary);
+}
+
+.price-change .value {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.price-change .value.down {
+    color: var(--price-primary);
+}
+
+.price-change .value.up {
+    color: var(--price-danger);
+}
+
+.save-amount .value {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--price-warning);
+}
+
+/* 价格趋势图表 */
+.price-trend {
+    background: var(--price-surface);
+    border-radius: var(--price-radius-lg);
+    padding: var(--price-spacing-xl);
+    margin-bottom: var(--price-spacing-lg);
+    box-shadow: var(--price-shadow);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--price-spacing-lg);
+}
+
+.section-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--price-text);
+    display: flex;
+    align-items: center;
+    gap: var(--price-spacing-sm);
+    margin: 0;
+}
+
+.section-header h3 i {
+    color: var(--price-primary);
+}
+
+.time-range {
+    display: flex;
+    gap: var(--price-spacing-xs);
+}
+
+.time-btn {
+    background: var(--price-surface-alt);
+    color: var(--price-text-secondary);
+    border: 1px solid var(--price-border);
+    border-radius: var(--price-radius-sm);
+    padding: var(--price-spacing-xs) var(--price-spacing-md);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--price-transition);
+}
+
+.time-btn:hover,
+.time-btn.active {
+    background: var(--price-primary);
+    color: white;
+    border-color: var(--price-primary);
+}
+
+.chart-container {
+    height: 300px;
+    margin-bottom: var(--price-spacing-lg);
+}
+
+.chart-legend {
+    display: flex;
+    justify-content: center;
+    gap: var(--price-spacing-xl);
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: var(--price-spacing-xs);
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+}
+
+.legend-text {
+    font-size: 12px;
+    color: var(--price-text-secondary);
+}
+
+/* 平台比价 */
+.platform-comparison {
+    background: var(--price-surface);
+    border-radius: var(--price-radius-lg);
+    padding: var(--price-spacing-xl);
+    margin-bottom: var(--price-spacing-lg);
+    box-shadow: var(--price-shadow);
+}
+
+.compare-all {
+    background: var(--price-primary);
+    color: white;
+    border: none;
+    border-radius: var(--price-radius-sm);
+    padding: var(--price-spacing-sm) var(--price-spacing-md);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--price-transition);
+}
+
+.compare-all:hover {
+    background: #43A047;
+    transform: translateY(-1px);
+}
+
+.platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--price-spacing-lg);
+    margin-top: var(--price-spacing-lg);
+}
+
+.platform-card {
+    background: var(--price-surface-alt);
+    border-radius: var(--price-radius);
+    padding: var(--price-spacing-lg);
+    border: 2px solid transparent;
+    transition: var(--price-transition);
+    cursor: pointer;
+}
+
+.platform-card:hover {
+    border-color: var(--price-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--price-shadow-hover);
+}
+
+.platform-card.best {
+    border-color: var(--price-primary);
+    background: var(--price-primary-light);
+}
+
+.platform-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--price-spacing-md);
+}
+
+.platform-name {
+    display: flex;
+    align-items: center;
+    gap: var(--price-spacing-sm);
+    font-weight: 600;
+    color: var(--price-text);
+}
+
+.platform-logo {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: white;
+}
+
+.platform-logo.taobao {
+    background: linear-gradient(135deg, #FF4000, #FF8000);
+}
+
+.platform-logo.jd {
+    background: linear-gradient(135deg, #E1141E, #FF2D2D);
+}
+
+.platform-logo.pdd {
+    background: linear-gradient(135deg, #FF3B30, #FF9500);
+}
+
+.platform-logo.amazon {
+    background: linear-gradient(135deg, #FF9900, #FFD700);
+}
+
+.platform-rating {
+    font-size: 12px;
+    color: var(--price-warning);
+}
+
+.platform-price {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--price-text);
+    margin-bottom: var(--price-spacing-xs);
+}
+
+.platform-shipping {
+    font-size: 14px;
+    color: var(--price-text-secondary);
+    margin-bottom: var(--price-spacing-md);
+}
+
+.platform-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--price-spacing-md) 0;
+}
+
+.platform-features li {
+    display: flex;
+    align-items: center;
+    gap: var(--price-spacing-sm);
+    font-size: 12px;
+    color: var(--price-text-secondary);
+    margin-bottom: var(--price-spacing-xs);
+}
+
+.platform-features li i {
+    color: var(--price-primary);
+    font-size: 10px;
+}
+
+.platform-actions {
+    display: flex;
+    gap: var(--price-spacing-sm);
+}
+
+.platform-action-btn {
+    flex: 1;
+    padding: var(--price-spacing-sm);
+    border: 1px solid var(--price-primary);
+    border-radius: var(--price-radius-sm);
+    background: white;
+    color: var(--price-primary);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--price-transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--price-spacing-xs);
+}
+
+.platform-action-btn:hover {
+    background: var(--price-primary);
+    color: white;
+}
+
+.platform-action-btn.buy {
+    background: var(--price-primary);
+    color: white;
+}
+
+.platform-action-btn.buy:hover {
+    background: #43A047;
+}
+
+/* 降价提醒 */
+.price-alert {
+    background: var(--price-surface);
+    border-radius: var(--price-radius-lg);
+    padding: var(--price-spacing-xl);
+    margin-bottom: var(--price-spacing-lg);
+    box-shadow: var(--price-shadow);
+}
+
+.alert-settings {
+    margin-top: var(--price-spacing-lg);
+    padding: var(--price-spacing-lg);
+    background: var(--price-surface-alt);
+    border-radius: var(--price-radius);
+}
+
+.alert-target {
+    margin-bottom: var(--price-spacing-lg);
+}
+
+.alert-target label {
+    display: block;
+    font-weight: 500;
+    color: var(--price-text);
+    margin-bottom: var(--price-spacing-sm);
+}
+
+.target-input {
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 2px solid var(--price-border);
+    border-radius: var(--price-radius-sm);
+    overflow: hidden;
+    max-width: 200px;
+}
+
+.target-input .currency {
+    padding: var(--price-spacing-md) var(--price-spacing-sm);
+    background: var(--price-surface-alt);
+    color: var(--price-text);
+    font-weight: 500;
+}
+
+.target-input input {
+    flex: 1;
+    border: none;
+    padding: var(--price-spacing-md);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--price-text);
+    outline: none;
+}
+
+.alert-platforms,
+.alert-notifications {
+    margin-bottom: var(--price-spacing-lg);
+}
+
+.alert-platforms label,
+.alert-notifications label {
+    display: block;
+    font-weight: 500;
+    color: var(--price-text);
+    margin-bottom: var(--price-spacing-sm);
+}
+
+.platform-checkboxes,
+.notification-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--price-spacing-md);
+}
+
+.platform-checkbox,
+.notification-option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--price-spacing-sm);
+    cursor: pointer;
+}
+
+.platform-checkbox input,
+.notification-option input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--price-border);
+    border-radius: 4px;
+    position: relative;
+    transition: var(--price-transition);
+}
+
+.platform-checkbox input:checked ~ .checkmark,
+.notification-option input:checked ~ .checkmark {
+    background: var(--price-primary);
+    border-color: var(--price-primary);
+}
+
+.checkmark::after {
+    content: '';
+    position: absolute;
+    display: none;
+    left: 6px;
+    top: 2px;
+    width: 6px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.platform-checkbox input:checked ~ .checkmark::after,
+.notification-option input:checked ~ .checkmark::after {
+    display: block;
+}
+
+.save-alert {
+    width: 100%;
+    padding: var(--price-spacing-md);
+    background: var(--price-primary);
+    color: white;
+    border: none;
+    border-radius: var(--price-radius-sm);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--price-transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--price-spacing-sm);
+}
+
+.save-alert:hover {
+    background: #43A047;
+    transform: translateY(-1px);
+}
+
+/* 相似商品推荐 */
+.similar-products {
+    background: var(--price-surface);
+    border-radius: var(--price-radius-lg);
+    padding: var(--price-spacing-xl);
+    margin-bottom: var(--price-spacing-lg);
+    box-shadow: var(--price-shadow);
+}
+
+.refresh-similar {
+    background: transparent;
+    border: 1px solid var(--price-border);
+    color: var(--price-text-secondary);
+    border-radius: var(--price-radius-sm);
+    padding: var(--price-spacing-xs) var(--price-spacing-md);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--price-transition);
+    display: flex;
+    align-items: center;
+    gap: var(--price-spacing-xs);
+}
+
+.refresh-similar:hover {
+    border-color: var(--price-primary);
+    color: var(--price-primary);
+}
+
+.similar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--price-spacing-lg);
+    margin-top: var(--price-spacing-lg);
+}
+
+.similar-card {
+    background: var(--price-surface-alt);
+    border-radius: var(--price-radius);
+    overflow: hidden;
+    cursor: pointer;
+    transition: var(--price-transition);
+}
+
+.similar-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--price-shadow-hover);
+}
+
+.similar-image {
+    height: 120px;
+    background: linear-gradient(45deg, #f5f5f5, #e0e0e0);
+    position: relative;
+}
+
+.similar-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--price-danger);
+    color: white;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+.similar-info {
+    padding: var(--price-spacing-md);
+}
+
+.similar-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--price-text);
+    margin: 0 0 var(--price-spacing-xs) 0;
+    line-height: 1.4;
+    height: 2.8em;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.similar-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--price-primary);
+    margin: 0;
+}
+
+.similar-original-price {
+    font-size: 12px;
+    color: var(--price-text-light);
+    text-decoration: line-through;
+    margin: 0;
+}
+
+/* 历史价格记录 */
+.price-history {
+    background: var(--price-surface);
+    border-radius: var(--price-radius-lg);
+    padding: var(--price-spacing-xl);
+    margin-bottom: var(--price-spacing-lg);
+    box-shadow: var(--price-shadow);
+}
+
+.export-history {
+    background: transparent;
+    border: 1px solid var(--price-border);
+    color: var(--price-text-secondary);
+    border-radius: var(--price-radius-sm);
+    padding: var(--price-spacing-xs) var(--price-spacing-md);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--price-transition);
+    display: flex;
+    align-items: center;
+    gap: var(--price-spacing-xs);
+}
+
+.export-history:hover {
+    border-color: var(--price-primary);
+    color: var(--price-primary);
+}
+
+.history-table-container {
+    overflow-x: auto;
+    margin-top: var(--price-spacing-lg);
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.history-table th {
+    background: var(--price-surface-alt);
+    padding: var(--price-spacing-md);
+    font-weight: 600;
+    color: var(--price-text);
+    text-align: left;
+    border-bottom: 2px solid var(--price-border);
+    white-space: nowrap;
+}
+
+.history-table td {
+    padding: var(--price-spacing-md);
+    border-bottom: 1px solid var(--price-border-light);
+    color: var(--price-text-secondary);
+}
+
+.history-table tr:hover {
+    background: var(--price-surface-alt);
+}
+
+.price-change-cell {
+    display: flex;
+    align-items: center;
+    gap: var(--price-spacing-xs);
+}
+
+.price-change-cell.up {
+    color: var(--price-danger);
+}
+
+.price-change-cell.down {
+    color: var(--price-primary);
+}
+
+/* 浮动比价工具 */
+.floating-comparison {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000;
+}
+
+.floating-btn {
+    width: 60px;
+    height: 60px;
+    background: var(--price-primary);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--price-shadow-lg);
+    transition: var(--price-transition);
+    position: relative;
+    z-index: 2;
+}
+
+.floating-btn:hover {
+    background: #43A047;
+    transform: scale(1.1);
+}
+
+.floating-label {
+    font-size: 10px;
+    margin-top: 2px;
+}
+
+.floating-panel {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    width: 320px;
+    background: var(--price-surface);
+    border-radius: var(--price-radius-lg);
+    box-shadow: var(--price-shadow-lg);
+    padding: var(--price-spacing-lg);
+    transform: translateY(20px);
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--price-transition);
+    z-index: 1;
+}
+
+.floating-panel.show {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--price-spacing-lg);
+}
+
+.panel-header h4 {
+    margin: 0;
+    font-size: 16px;
+    color: var(--price-text);
+}
+
+.close-panel {
+    background: transparent;
+    border: none;
+    color: var(--price-text-secondary);
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--price-transition);
+}
+
+.close-panel:hover {
+    background: var(--price-border-light);
+    color: var(--price-text);
+}
+
+.quick-search {
+    display: flex;
+    gap: var(--price-spacing-sm);
+    margin-bottom: var(--price-spacing-lg);
+}
+
+.quick-search input {
+    flex: 1;
+    border: 2px solid var(--price-border);
+    border-radius: var(--price-radius-sm);
+    padding: var(--price-spacing-sm) var(--price-spacing-md);
+    font-size: 14px;
+    color: var(--price-text);
+    outline: none;
+}
+
+.quick-search input:focus {
+    border-color: var(--price-primary);
+}
+
+.quick-search button {
+    background: var(--price-primary);
+    color: white;
+    border: none;
+    border-radius: var(--price-radius-sm);
+    width: 40px;
+    cursor: pointer;
+    transition: var(--price-transition);
+}
+
+.quick-search button:hover {
+    background: #43A047;
+}
+
+.quick-results {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.quick-result {
+    padding: var(--price-spacing-sm);
+    border-bottom: 1px solid var(--price-border-light);
+    cursor: pointer;
+    transition: var(--price-transition);
+}
+
+.quick-result:hover {
+    background: var(--price-surface-alt);
+}
+
+.quick-result:last-child {
+    border-bottom: none;
+}
+
+.quick-result-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--price-text);
+    margin-bottom: var(--price-spacing-xs);
+}
+
+.quick-result-price {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--price-primary);
+}
+
+/* 截图比价功能 */
+.screenshot-comparison {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 600px;
+    background: var(--price-surface);
+    border-radius: var(--price-radius-lg);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    z-index: 1001;
+    display: none;
+}
+
+.screenshot-comparison.show {
+    display: block;
+}
+
+.screenshot-header {
+    padding: var(--price-spacing-lg);
+    border-bottom: 1px solid var(--price-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.screenshot-header h4 {
+    margin: 0;
+    font-size: 18px;
+    color: var(--price-text);
+}
+
+.close-screenshot {
+    background: transparent;
+    border: none;
+    color: var(--price-text-secondary);
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--price-transition);
+}
+
+.close-screenshot:hover {
+    background: var(--price-border-light);
+    color: var(--price-text);
+}
+
+.screenshot-body {
+    padding: var(--price-spacing-lg);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--price-spacing-lg);
+    min-height: 300px;
+}
+
+.screenshot-area {
+    border: 2px dashed var(--price-border);
+    border-radius: var(--price-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--price-transition);
+}
+
+.screenshot-area:hover {
+    border-color: var(--price-primary);
+    background: var(--price-primary-light);
+}
+
+.screenshot-area.drag-over {
+    border-color: var(--price-primary);
+    background: var(--price-primary-light);
+}
+
+.screenshot-instruction {
+    text-align: center;
+    color: var(--price-text-secondary);
+}
+
+.screenshot-instruction i {
+    font-size: 48px;
+    margin-bottom: var(--price-spacing-md);
+    color: var(--price-primary);
+}
+
+.screenshot-instruction p {
+    margin: 0 0 var(--price-spacing-xs) 0;
+}
+
+.screenshot-instruction .small {
+    font-size: 12px;
+    color: var(--price-text-light);
+}
+
+.screenshot-results {
+    overflow-y: auto;
+    max-height: 300px;
+}
+
+.screenshot-result-item {
+    padding: var(--price-spacing-sm);
+    border-bottom: 1px solid var(--price-border-light);
+}
+
+.screenshot-result-item:last-child {
+    border-bottom: none;
+}
+
+.screenshot-footer {
+    padding: var(--price-spacing-lg);
+    border-top: 1px solid var(--price-border);
+    display: flex;
+    justify-content: center;
+    gap: var(--price-spacing-md);
+}
+
+.screenshot-btn {
+    padding: var(--price-spacing-sm) var(--price-spacing-lg);
+    background: var(--price-primary);
+    color: white;
+    border: none;
+    border-radius: var(--price-radius-sm);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--price-transition);
+    display: flex;
+    align-items: center;
+    gap: var(--price-spacing-sm);
+}
+
+.screenshot-btn:hover {
+    background: #43A047;
+    transform: translateY(-1px);
+}
+
+.screenshot-btn:nth-child(2) {
+    background: var(--price-secondary);
+}
+
+.screenshot-btn:nth-child(2):hover {
+    background: #1976D2;
+}
+
+.screenshot-btn:nth-child(3) {
+    background: var(--price-accent);
+}
+
+.screenshot-btn:nth-child(3):hover {
+    background: #E65A00;
+}
+
+/* 遮罩层 */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: none;
+}
+
+.overlay.show {
+    display: block;
+}
+
+/* 切换开关样式 */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--price-primary);
+}
+
+input:checked + .slider:before {
+    transform: translateX(30px);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .price-main {
+        padding: 0 var(--price-spacing-md);
+    }
+    
+    .product-header {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--price-spacing-md);
+    }
+    
+    .price-overview {
+        grid-template-columns: 1fr;
+        gap: var(--price-spacing-md);
+    }
+    
+    .platforms-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .similar-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--price-spacing-md);
+    }
+    
+    .time-range {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .time-btn {
+        flex: 1;
+        text-align: center;
+    }
+    
+    .screenshot-body {
+        grid-template-columns: 1fr;
+    }
+    
+    .floating-panel {
+        width: calc(100vw - 48px);
+        right: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .similar-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .platform-checkboxes,
+    .notification-options {
+        flex-direction: column;
+        gap: var(--price-spacing-sm);
+    }
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.current-product,
+.price-trend,
+.platform-comparison,
+.price-alert,
+.similar-products,
+.price-history {
+    animation: fadeIn 0.3s ease;
+}
+
+.floating-panel.show {
+    animation: slideIn 0.3s ease;
+}
+
+/* 加载动画 */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid var(--price-border);
+    border-radius: 50%;
+    border-top-color: var(--price-primary);
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* 工具提示 */
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: var(--price-text);
+    color: white;
+    text-align: center;
+    border-radius: var(--price-radius-sm);
+    padding: var(--price-spacing-sm);
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 12px;
+}
+
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+.tooltip .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--price-text) transparent transparent transparent;
+}

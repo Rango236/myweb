@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能比价 - 电商UX实验室</title>
+    <link rel="stylesheet" href="price-comparison.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- 引入Chart.js用于价格图表 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="price-comparison">
+    <!-- 返回导航 -->
+    <nav class="price-nav">
+        <a href="index.html" class="nav-back">
+            <i class="fas fa-arrow-left"></i>
+            <span>返回首页</span>
+        </a>
+        <h1 class="nav-title">智能比价助手</h1>
+        <button class="nav-help" id="priceHelp">
+            <i class="fas fa-question-circle"></i>
+        </button>
+    </nav>
+
+    <!-- 搜索区域 -->
+    <section class="search-section">
+        <div class="search-container">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" 
+                       id="productSearch" 
+                       placeholder="输入商品名称或拍照搜索..."
+                       aria-label="搜索商品">
+                <button class="search-action" id="scanProduct">
+                    <i class="fas fa-camera"></i>
+                </button>
+            </div>
+            <div class="search-suggestions" id="searchSuggestions">
+                <!-- 搜索建议将动态生成 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 主内容区域 -->
+    <main class="price-main">
+        <!-- 当前商品信息 -->
+        <section class="current-product" id="currentProduct">
+            <div class="product-header">
+                <div class="product-image">
+                    <img src="https://via.placeholder.com/120x120/4CAF50/FFFFFF?text=商品" 
+                         alt="iPhone 14 Pro" 
+                         id="productImage">
+                </div>
+                <div class="product-info">
+                    <h2 id="productName">iPhone 14 Pro 256GB</h2>
+                    <div class="product-tags">
+                        <span class="tag hot">热门</span>
+                        <span class="tag discount">降价中</span>
+                        <span class="tag best-price">历史低价</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="price-overview">
+                <div class="current-price">
+                    <span class="label">当前最低价</span>
+                    <span class="value" id="currentLowestPrice">¥7,999</span>
+                </div>
+                <div class="price-change">
+                    <span class="label">30天价格变化</span>
+                    <span class="value down">-12.5%</span>
+                </div>
+                <div class="save-amount">
+                    <span class="label">预计节省</span>
+                    <span class="value">¥1,200</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 价格趋势图表 -->
+        <section class="price-trend">
+            <div class="section-header">
+                <h3><i class="fas fa-chart-line"></i> 价格趋势</h3>
+                <div class="time-range">
+                    <button class="time-btn active" data-range="30">30天</button>
+                    <button class="time-btn" data-range="90">90天</button>
+                    <button class="time-btn" data-range="180">180天</button>
+                    <button class="time-btn" data-range="365">1年</button>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="priceChart"></canvas>
+            </div>
+            <div class="chart-legend">
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #4CAF50;"></span>
+                    <span class="legend-text">淘宝</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #2196F3;"></span>
+                    <span class="legend-text">京东</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #FF6B00;"></span>
+                    <span class="legend-text">拼多多</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #9C27B0;"></span>
+                    <span class="legend-text">历史最低</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 平台比价 -->
+        <section class="platform-comparison">
+            <div class="section-header">
+                <h3><i class="fas fa-balance-scale"></i> 平台比价</h3>
+                <button class="compare-all" id="compareAllPlatforms">
+                    全部平台比价
+                </button>
+            </div>
+            
+            <div class="platforms-grid" id="platformsGrid">
+                <!-- 平台比价卡片将动态生成 -->
+            </div>
+        </section>
+
+        <!-- 降价提醒设置 -->
+        <section class="price-alert">
+            <div class="section-header">
+                <h3><i class="fas fa-bell"></i> 降价提醒</h3>
+                <div class="alert-toggle">
+                    <label class="switch">
+                        <input type="checkbox" id="priceAlertToggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="alert-settings" id="alertSettings">
+                <div class="alert-target">
+                    <label for="targetPrice">目标价格</label>
+                    <div class="target-input">
+                        <span class="currency">¥</span>
+                        <input type="number" 
+                               id="targetPrice" 
+                               value="7500" 
+                               min="0" 
+                               step="100">
+                    </div>
+                </div>
+                
+                <div class="alert-platforms">
+                    <label>监控平台</label>
+                    <div class="platform-checkboxes">
+                        <label class="platform-checkbox">
+                            <input type="checkbox" name="platform" value="taobao" checked>
+                            <span class="checkmark"></span>
+                            <span>淘宝</span>
+                        </label>
+                        <label class="platform-checkbox">
+                            <input type="checkbox" name="platform" value="jd" checked>
+                            <span class="checkmark"></span>
+                            <span>京东</span>
+                        </label>
+                        <label class="platform-checkbox">
+                            <input type="checkbox" name="platform" value="pdd" checked>
+                            <span class="checkmark"></span>
+                            <span>拼多多</span>
+                        </label>
+                        <label class="platform-checkbox">
+                            <input type="checkbox" name="platform" value="amazon">
+                            <span class="checkmark"></span>
+                            <span>亚马逊</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="alert-notifications">
+                    <label>通知方式</label>
+                    <div class="notification-options">
+                        <label class="notification-option">
+                            <input type="checkbox" name="notification" value="push" checked>
+                            <span class="checkmark"></span>
+                            <span>推送通知</span>
+                        </label>
+                        <label class="notification-option">
+                            <input type="checkbox" name="notification" value="email">
+                            <span class="checkmark"></span>
+                            <span>邮件通知</span>
+                        </label>
+                        <label class="notification-option">
+                            <input type="checkbox" name="notification" value="sms">
+                            <span class="checkmark"></span>
+                            <span>短信通知</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <button class="save-alert" id="saveAlert">
+                    <i class="fas fa-save"></i>
+                    保存设置
+                </button>
+            </div>
+        </section>
+
+        <!-- 相似商品推荐 -->
+        <section class="similar-products">
+            <div class="section-header">
+                <h3><i class="fas fa-th-large"></i> 相似商品</h3>
+                <button class="refresh-similar" id="refreshSimilar">
+                    <i class="fas fa-sync-alt"></i>
+                    换一批
+                </button>
+            </div>
+            
+            <div class="similar-grid" id="similarGrid">
+                <!-- 相似商品将动态生成 -->
+            </div>
+        </section>
+
+        <!-- 历史价格记录 -->
+        <section class="price-history">
+            <div class="section-header">
+                <h3><i class="fas fa-history"></i> 价格记录</h3>
+                <button class="export-history" id="exportHistory">
+                    <i class="fas fa-download"></i>
+                    导出数据
+                </button>
+            </div>
+            
+            <div class="history-table-container">
+                <table class="history-table" id="historyTable">
+                    <thead>
+                        <tr>
+                            <th>日期</th>
+                            <th>平台</th>
+                            <th>价格</th>
+                            <th>变化</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 历史记录将动态生成 -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- 浮动比价工具 -->
+    <div class="floating-comparison">
+        <button class="floating-btn" id="floatingCompare">
+            <i class="fas fa-balance-scale"></i>
+            <span class="floating-label">比价</span>
+        </button>
+        <div class="floating-panel" id="floatingPanel">
+            <div class="panel-header">
+                <h4>快速比价</h4>
+                <button class="close-panel">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="panel-content">
+                <div class="quick-search">
+                    <input type="text" 
+                           placeholder="输入商品URL或名称..."
+                           id="quickSearch">
+                    <button id="quickSearchBtn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div class="quick-results" id="quickResults">
+                    <!-- 快速比价结果 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 截图比价功能 -->
+    <div class="screenshot-comparison" id="screenshotTool">
+        <div class="screenshot-header">
+            <h4>截图比价</h4>
+            <button class="close-screenshot">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="screenshot-body">
+            <div class="screenshot-area" id="screenshotArea">
+                <div class="screenshot-instruction">
+                    <i class="fas fa-camera"></i>
+                    <p>拖拽截图到此处</p>
+                    <p class="small">或点击上传图片</p>
+                </div>
+                <input type="file" 
+                       id="screenshotUpload" 
+                       accept="image/*" 
+                       style="display: none;">
+            </div>
+            <div class="screenshot-results" id="screenshotResults">
+                <!-- OCR识别结果 -->
+            </div>
+        </div>
+        <div class="screenshot-footer">
+            <button class="screenshot-btn" id="takeScreenshot">
+                <i class="fas fa-camera"></i>
+                截屏
+            </button>
+            <button class="screenshot-btn" id="uploadScreenshot">
+                <i class="fas fa-upload"></i>
+                上传
+            </button>
+            <button class="screenshot-btn" id="analyzeScreenshot">
+                <i class="fas fa-search"></i>
+                识别
+            </button>
+        </div>
+    </div>
+
+    <script src="price-comparison.js"></script>
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>长辈模式 - 电商UX实验室</title>
+    <link rel="stylesheet" href="senior-mode.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="senior-mode">
+    <!-- 语音控制栏 -->
+    <div class="voice-control-bar">
+        <button id="voiceControl" class="voice-control-btn">
+            <i class="fas fa-microphone"></i>
+            <span>语音控制</span>
+        </button>
+        <div class="voice-status" id="voiceStatus">
+            点击按钮开始说话
+        </div>
+    </div>
+    
+    <!-- 顶部导航 -->
+    <nav class="senior-nav">
+        <div class="nav-back">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                <span>返回</span>
+            </a>
+        </div>
+        <div class="nav-title">
+            <h1>长辈购物模式</h1>
+        </div>
+        <div class="nav-help">
+            <button id="helpBtn" class="help-btn">
+                <i class="fas fa-headset"></i>
+                <span>帮助</span>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- 主内容区 -->
+    <main class="senior-main">
+        <!-- 语音搜索 -->
+        <section class="senior-section">
+            <div class="section-header">
+                <h2><i class="fas fa-microphone"></i> 语音搜索</h2>
+                <p class="section-subtitle">说出您想购买的商品名称</p>
+            </div>
+            
+            <div class="voice-search-container">
+                <button id="voiceSearchBtn" class="voice-search-btn">
+                    <i class="fas fa-microphone"></i>
+                    <span>按住说话</span>
+                </button>
+                <div class="voice-examples">
+                    <p>试试这样说：</p>
+                    <div class="example-tags">
+                        <button class="example-tag" data-query="大米">"大米"</button>
+                        <button class="example-tag" data-query="洗发水">"洗发水"</button>
+                        <button class="example-tag" data-query="电视机">"电视机"</button>
+                        <button class="example-tag" data-query="苹果">"苹果"</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 快捷功能 -->
+        <section class="senior-section">
+            <div class="section-header">
+                <h2><i class="fas fa-th-large"></i> 常用功能</h2>
+            </div>
+            
+            <div class="quick-functions">
+                <div class="function-card" data-function="scan">
+                    <div class="function-icon">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <h3>扫一扫</h3>
+                    <p>扫描商品条码</p>
+                </div>
+                
+                <div class="function-card" data-function="orders">
+                    <div class="function-icon">
+                        <i class="fas fa-receipt"></i>
+                    </div>
+                    <h3>我的订单</h3>
+                    <p>查看购买记录</p>
+                </div>
+                
+                <div class="function-card" data-function="favorites">
+                    <div class="function-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>我的收藏</h3>
+                    <p>收藏的商品</p>
+                </div>
+                
+                <div class="function-card" data-function="cart">
+                    <div class="function-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3>购物车</h3>
+                    <p>待购买商品</p>
+                </div>
+                
+                <div class="function-card" data-function="customer-service">
+                    <div class="function-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>联系客服</h3>
+                    <p>视频电话帮助</p>
+                </div>
+                
+                <div class="function-card" data-function="settings">
+                    <div class="function-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <h3>设置</h3>
+                    <p>字体大小等</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 商品推荐 -->
+        <section class="senior-section">
+            <div class="section-header">
+                <h2><i class="fas fa-star"></i> 为您推荐</h2>
+                <button class="refresh-btn">
+                    <i class="fas fa-sync-alt"></i>
+                    <span>换一批</span>
+                </button>
+            </div>
+            
+            <div class="product-recommendations">
+                <!-- 商品卡片将通过JavaScript动态生成 -->
+            </div>
+        </section>
+        
+        <!-- 购物助手 -->
+        <section class="senior-section">
+            <div class="section-header">
+                <h2><i class="fas fa-robot"></i> 购物助手</h2>
+            </div>
+            
+            <div class="shopping-assistant">
+                <div class="assistant-message">
+                    <div class="assistant-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <p>我是您的购物助手，需要帮您找什么商品吗？</p>
+                    </div>
+                </div>
+                
+                <div class="assistant-quick-questions">
+                    <button class="quick-question" data-question="今日特价">
+                        今日有什么特价商品？
+                    </button>
+                    <button class="quick-question" data-question="买菜">
+                        我想买菜，去哪里找？
+                    </button>
+                    <button class="quick-question" data-question="送货">
+                        怎么查看送货进度？
+                    </button>
+                    <button class="quick-question" data-question="退货">
+                        如何退货退款？
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- 底部导航 -->
+    <footer class="senior-footer">
+        <nav class="footer-nav">
+            <a href="#" class="footer-nav-item active">
+                <i class="fas fa-home"></i>
+                <span>首页</span>
+            </a>
+            <a href="#" class="footer-nav-item">
+                <i class="fas fa-search"></i>
+                <span>搜索</span>
+            </a>
+            <a href="#" class="footer-nav-item">
+                <i class="fas fa-shopping-cart"></i>
+                <span>购物车</span>
+                <span class="cart-count">3</span>
+            </a>
+            <a href="#" class="footer-nav-item">
+                <i class="fas fa-user"></i>
+                <span>我的</span>
+            </a>
+        </nav>
+    </footer>
+    
+    <!-- 语音助手界面 -->
+    <div id="voiceAssistant" class="voice-assistant hidden">
+        <div class="assistant-container">
+            <div class="assistant-header">
+                <h3>语音助手</h3>
+                <button class="close-assistant">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="assistant-body">
+                <div class="voice-visualizer" id="voiceVisualizer">
+                    <!-- 声音波形可视化 -->
+                </div>
+                <div class="voice-instruction">
+                    <p id="voiceInstruction">请说出您的需求...</p>
+                </div>
+                <div class="voice-result" id="voiceResult">
+                    <!-- 识别结果显示 -->
+                </div>
+            </div>
+            <div class="assistant-footer">
+                <button id="startListening" class="voice-action-btn">
+                    <i class="fas fa-microphone"></i>
+                    <span>开始说话</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 视频客服界面 -->
+    <div id="videoService" class="video-service hidden">
+        <div class="video-container">
+            <div class="video-header">
+                <h3>视频客服</h3>
+                <button class="close-video">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="video-body">
+                <div class="remote-video">
+                    <!-- 客服视频 -->
+                    <div class="video-placeholder">
+                        <i class="fas fa-user-tie"></i>
+                        <p>正在连接客服...</p>
+                    </div>
+                </div>
+                <div class="local-video">
+                    <!-- 本地视频 -->
+                    <div class="video-placeholder small">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="video-controls">
+                <button class="video-control-btn">
+                    <i class="fas fa-microphone"></i>
+                </button>
+                <button class="video-control-btn">
+                    <i class="fas fa-video"></i>
+                </button>
+                <button class="video-control-btn end-call">
+                    <i class="fas fa-phone-slash"></i>
+                </button>
+                <button class="video-control-btn">
+                    <i class="fas fa-expand"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 放大镜功能 -->
+    <div id="magnifier" class="magnifier hidden">
+        <div class="magnifier-content"></div>
+    </div>
+    
+    <script src="senior-mode.js"></script>
+</body>
+</html>

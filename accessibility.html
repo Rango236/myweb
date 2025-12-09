@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>无障碍设计 - 电商UX实验室</title>
+    <link rel="stylesheet" href="accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="accessibility-mode" data-font-size="normal" data-contrast="normal">
+    <!-- 无障碍工具栏 -->
+    <div class="accessibility-toolbar">
+        <div class="toolbar-container">
+            <button class="toolbar-btn" id="highContrastToggle" aria-label="切换高对比度模式">
+                <i class="fas fa-adjust"></i>
+                <span class="toolbar-label">对比度</span>
+            </button>
+            
+            <div class="toolbar-group">
+                <button class="toolbar-btn" id="decreaseFont" aria-label="减小字体大小">
+                    <i class="fas fa-font"></i>
+                    <span class="toolbar-label">A-</span>
+                </button>
+                <span class="font-size-display" id="fontSizeDisplay">中</span>
+                <button class="toolbar-btn" id="increaseFont" aria-label="增大字体大小">
+                    <i class="fas fa-font"></i>
+                    <span class="toolbar-label">A+</span>
+                </button>
+            </div>
+            
+            <button class="toolbar-btn" id="screenReaderToggle" aria-label="切换屏幕阅读器模式">
+                <i class="fas fa-assistive-listening-systems"></i>
+                <span class="toolbar-label">阅读器</span>
+            </button>
+            
+            <button class="toolbar-btn" id="keyboardModeToggle" aria-label="切换键盘导航模式">
+                <i class="fas fa-keyboard"></i>
+                <span class="toolbar-label">键盘</span>
+            </button>
+            
+            <button class="toolbar-btn" id="simulateDisability" aria-label="模拟障碍体验">
+                <i class="fas fa-eye-low-vision"></i>
+                <span class="toolbar-label">模拟</span>
+            </button>
+            
+            <button class="toolbar-btn" id="resetSettings" aria-label="重置所有设置">
+                <i class="fas fa-redo"></i>
+                <span class="toolbar-label">重置</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="accessibility-nav" aria-label="主导航">
+        <div class="nav-container">
+            <a href="index.html" class="nav-back" aria-label="返回首页">
+                <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                <span>返回</span>
+            </a>
+            
+            <h1 class="nav-title">
+                <i class="fas fa-universal-access" aria-hidden="true"></i>
+                无障碍设计模式
+            </h1>
+            
+            <button class="nav-menu-btn" id="navMenuBtn" aria-label="导航菜单" aria-expanded="false">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+        </div>
+        
+        <div class="nav-menu" id="navMenu" aria-hidden="true">
+            <ul>
+                <li><a href="#visual" class="nav-link">视觉辅助</a></li>
+                <li><a href="#auditory" class="nav-link">听觉辅助</a></li>
+                <li><a href="#motor" class="nav-link">运动辅助</a></li>
+                <li><a href="#cognitive" class="nav-link">认知辅助</a></li>
+                <li><a href="#testing" class="nav-link">测试工具</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 屏幕阅读器状态栏 -->
+    <div class="screen-reader-status" id="screenReaderStatus" aria-live="polite" aria-atomic="true">
+        <!-- 屏幕阅读器状态信息将动态更新 -->
+    </div>
+
+    <!-- 主内容区域 -->
+    <main class="accessibility-main">
+        <!-- 视觉辅助 -->
+        <section id="visual" class="accessibility-section" aria-labelledby="visual-heading">
+            <h2 id="visual-heading" class="section-heading">
+                <i class="fas fa-eye"></i>
+                视觉辅助功能
+            </h2>
+            
+            <div class="section-content">
+                <div class="feature-grid">
+                    <!-- 高对比度模式 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <i class="fas fa-adjust"></i>
+                            </div>
+                            <h3 class="feature-title">高对比度模式</h3>
+                        </div>
+                        <p class="feature-description">
+                            增强文字与背景的对比度，提高可读性。特别适合低视力用户。
+                        </p>
+                        <div class="feature-controls">
+                            <div class="contrast-options">
+                                <button class="contrast-option active" data-contrast="normal" aria-label="正常对比度">
+                                    正常
+                                </button>
+                                <button class="contrast-option" data-contrast="high" aria-label="高对比度">
+                                    高对比度
+                                </button>
+                                <button class="contrast-option" data-contrast="inverse" aria-label="反色对比度">
+                                    反色
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 字体大小调整 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <i class="fas fa-text-height"></i>
+                            </div>
+                            <h3 class="feature-title">字体大小调整</h3>
+                        </div>
+                        <p class="feature-description">
+                            根据用户需求调整字体大小，支持从正常到超大的四级缩放。
+                        </p>
+                        <div class="feature-controls">
+                            <div class="font-size-options">
+                                <button class="font-size-option" data-size="small" aria-label="小字体">
+                                    <span class="font-sample" style="font-size: 14px">A</span>
+                                </button>
+                                <button class="font-size-option active" data-size="normal" aria-label="正常字体">
+                                    <span class="font-sample" style="font-size: 16px">A</span>
+                                </button>
+                                <button class="font-size-option" data-size="large" aria-label="大字体">
+                                    <span class="font-sample" style="font-size: 20px">A</span>
+                                </button>
+                                <button class="font-size-option" data-size="xlarge" aria-label="超大字体">
+                                    <span class="font-sample" style="font-size: 24px">A</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 阅读辅助线 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <i class="fas fa-ruler-combined"></i>
+                            </div>
+                            <h3 class="feature-title">阅读辅助线</h3>
+                        </div>
+                        <p class="feature-description">
+                            显示阅读引导线，帮助用户保持阅读焦点，减少跳行和视觉疲劳。
+                        </p>
+                        <div class="feature-controls">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="readingGuideToggle" aria-label="切换阅读辅助线">
+                                <span class="slider"></span>
+                                <span class="toggle-label">启用阅读辅助线</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- 图片描述 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <i class="fas fa-image"></i>
+                            </div>
+                            <h3 class="feature-title">图片描述</h3>
+                        </div>
+                        <p class="feature-description">
+                            为所有图片提供详细的文字描述，支持屏幕阅读器读取。
+                        </p>
+                        <div class="feature-demo">
+                            <div class="image-with-description">
+                                <img src="https://via.placeholder.com/200x150/4CAF50/FFFFFF?text=示例商品" 
+                                     alt="绿色背景的示例商品图片，展示一个电子产品"
+                                     class="demo-image">
+                                <div class="image-description" aria-hidden="true">
+                                    <p><strong>图片描述：</strong>这是一个示例商品图片，展示了一个电子产品在绿色背景上。产品有光滑的表面和现代的设计。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 颜色盲支持 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <h3 class="feature-title">色盲友好模式</h3>
+                        </div>
+                        <p class="feature-description">
+                            调整颜色方案以适应不同类型的色盲用户。
+                        </p>
+                        <div class="feature-controls">
+                            <select id="colorBlindMode" class="color-blind-select" aria-label="选择色盲模式">
+                                <option value="normal">正常视觉</option>
+                                <option value="protanopia">红色盲（Protanopia）</option>
+                                <option value="deuteranopia">绿色盲（Deuteranopia）</option>
+                                <option value="tritanopia">蓝色盲（Tritanopia）</option>
+                                <option value="monochromacy">全色盲</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- 焦点高亮 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            <h3 class="feature-title">焦点高亮</h3>
+                        </div>
+                        <p class="feature-description">
+                            增强键盘导航时的焦点指示器，使当前焦点元素更加明显。
+                        </p>
+                        <div class="feature-controls">
+                            <div class="focus-options">
+                                <button class="focus-option active" data-focus="normal" aria-label="正常焦点样式">
+                                    正常
+                                </button>
+                                <button class="focus-option" data-focus="high" aria-label="高亮焦点样式">
+                                    高亮
+                                </button>
+                                <button class="focus-option" data-focus="extra" aria-label="增强焦点样式">
+                                    增强
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 听觉辅助 -->
+        <section id="auditory" class="accessibility-section" aria-labelledby="auditory-heading">
+            <h2 id="auditory-heading" class="section-heading">
+                <i class="fas fa-assistive-listening-systems"></i>
+                听觉辅助功能
+            </h2>
+            
+            <div class="section-content">
+                <div class="feature-grid">
+                    <!-- 屏幕阅读器 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <i class="fas fa-volume-up"></i>
+                            </div>
+                            <h3 class="feature-title">屏幕阅读器</h3>
+                        </div>
+                        <p class="feature-description">
+                            将页面内容转换为语音输出，支持语速、音调和语音选择。
+                        </p>
+                        <div class="feature-controls">
+                            <div class="screen-reader-controls">
+                                <div class="voice-control">
+                                    <label for="voiceSelect">选择语音：</label>
+                                    <select id="voiceSelect" class="voice-select" aria-label="选择语音">
+                                        <!-- 语音选项将动态生成 -->
+                                    </select>
+                                </div>
+                                
+                                <div class="rate-control">
+                                    <label for="rateRange">语速：</label>
+                                    <input type="range" id="rateRange" min="0.5" max="2" step="0.1" value="1" aria-label="调整语速">
+                                    <span id="rateValue" class="value-display">1.0x</span>
+                                </div>
+                                
+                                <div class="pitch-control">
+                                    <label for="pitchRange">音调：</label>
+                                    <input type="range" id="pitchRange" min="0.5" max="2" step="0.1" value="1" aria-label="调整音调">
+                                    <span id="pitchValue" class="value-display">1.0</span>
+                                </div>
+                            </div>
+                            
+                            <div class="screen-reader-buttons">
+                                <button id="readPage" class="speech-btn" aria-label="朗读当前页面">
+                                    <i class="fas fa-play"></i>
+                                    朗读页面
+                                </button>
+                                <button id="pauseSpeech" class="speech-btn secondary" aria-label="暂停朗读">
+                                    <i class="fas fa-pause"></i>
+                                    暂停
+                                </button>
+                                <button id="stopSpeech" class="speech-btn secondary" aria-label="停止朗读">
+                                    <i class="fas fa-stop"></i>
+                                    停止
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 字幕支持 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <i class="fas fa-closed-captioning"></i>
+                            </div>
+                            <h3 class="feature-title">视频字幕</h3>
+                        </div>
+                        <p class="feature-description">
+                            为所有视频内容提供可自定义的字幕，支持大小、颜色和背景调整。
+                        </p>
+                        <div class="feature-demo">
+                            <div class="video-player">
+                                <div class="video-placeholder">
+                                    <i class="fas fa-video"></i>
+                                    <p>无障碍功能介绍视频</p>
+                                </div>
+                                <div class="caption-display" id="captionDisplay">
+                                    <p>这是一个演示字幕。您可以调整字幕的外观设置。</p>
+                                </div>
+                            </div>
+                            
+                            <div class="caption-controls">
+                                <div class="caption-option">
+                                    <label for="captionSize">字幕大小：</label>
+                                    <select id="captionSize" class="caption-select" aria-label="选择字幕大小">
+                                        <option value="small">小</option>
+                                        <option value="normal" selected>正常</option>
+                                        <option value="large">大</option>
+                                        <option value="xlarge">特大</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="caption-option">
+                                    <label for="captionColor">字幕颜色：</label>
+                                    <input type="color" id="captionColor" value="#FFFFFF" aria-label="选择字幕颜色">
+                                </div>
+                                
+                                <div class="caption-option">
+                                    <label for="captionBackground">背景颜色：</label>
+                                    <input type="color" id="captionBackground" value="#000000" aria-label="选择字幕背景颜色">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 音频描述 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <i class="fas fa-audio-description"></i>
+                            </div>
+                            <h3 class="feature-title">音频描述</h3>
+                        </div>
+                        <p class="feature-description">
+                            为视觉内容提供音频描述，帮助视障用户理解非文本内容。
+                        </p>
+                        <div class="feature-controls">
+                            <button id="playAudioDescription" class="audio-desc-btn" aria-label="播放音频描述">
+                                <i class="fas fa-play-circle"></i>
+                                播放音频描述
+                            </button>
+                            <div class="audio-desc-text" id="audioDescText">
+                                这是一段音频描述示例："屏幕上显示一个电子商务网站的界面，顶部有导航栏，中间是商品展示区域，底部有页脚信息。"
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 声音反馈 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <h3 class="feature-title">声音反馈</h3>
+                        </div>
+                        <p class="feature-description">
+                            为交互操作提供声音反馈，帮助用户确认操作成功或失败。
+                        </p>
+                        <div class="feature-controls">
+                            <div class="sound-feedback-demo">
+                                <button id="successSound" class="sound-btn" aria-label="播放成功音效">
+                                    <i class="fas fa-check-circle"></i>
+                                    成功音效
+                                </button>
+                                <button id="errorSound" class="sound-btn" aria-label="播放错误音效">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    错误音效
+                                </button>
+                                <button id="clickSound" class="sound-btn" aria-label="播放点击音效">
+                                    <i class="fas fa-mouse-pointer"></i>
+                                    点击音效
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 运动辅助 -->
+        <section id="motor" class="accessibility-section" aria-labelledby="motor-heading">
+            <h2 id="motor-heading" class="section-heading">
+                <i class="fas fa-mouse-pointer"></i>
+                运动辅助功能
+            </h2>
+            
+            <div class="section-content">
+                <div class="feature-grid">
+                    <!-- 键盘导航 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <i class="fas fa-keyboard"></i>
+                            </div>
+                            <h3 class="feature-title">键盘导航</h3>
+                        </div>
+                        <p class="feature-description">
+                            支持完全键盘操作，无需鼠标即可访问所有功能和内容。
+                        </p>
+                        <div class="feature-demo">
+                            <div class="keyboard-demo">
+                                <div class="keyboard-instructions">
+                                    <p>试用键盘导航：</p>
+                                    <ul>
+                                        <li><kbd>Tab</kbd> - 跳转到下一个元素</li>
+                                        <li><kbd>Shift</kbd> + <kbd>Tab</kbd> - 跳转到上一个元素</li>
+                                        <li><kbd>Enter</kbd> / <kbd>Space</kbd> - 激活当前元素</li>
+                                        <li><kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd> - 导航</li>
+                                        <li><kbd>ESC</kbd> - 关闭/取消</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="keyboard-focus-demo">
+                                    <div class="focus-demo-item" tabindex="0" data-item="1">
+                                        可聚焦元素 1
+                                    </div>
+                                    <div class="focus-demo-item" tabindex="0" data-item="2">
+                                        可聚焦元素 2
+                                    </div>
+                                    <div class="focus-demo-item" tabindex="0" data-item="3">
+                                        可聚焦元素 3
+                                    </div>
+                                    <div class="focus-demo-item" tabindex="0" data-item="4">
+                                        可聚焦元素 4
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 语音控制 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <i class="fas fa-microphone"></i>
+                            </div>
+                            <h3 class="feature-title">语音控制</h3>
+                        </div>
+                        <p class="feature-description">
+                            支持语音命令控制界面，用户可以通过说话来执行操作。
+                        </p>
+                        <div class="feature-controls">
+                            <div class="voice-control-demo">
+                                <button id="startVoiceControl" class="voice-control-btn" aria-label="开始语音控制">
+                                    <i class="fas fa-microphone"></i>
+                                    <span id="voiceControlStatus">开始语音控制</span>
+                                </button>
+                                
+                                <div class="voice-commands">
+                                    <p>试试说：</p>
+                                    <div class="command-examples">
+                                        <button class="command-example" data-command="打开导航">"打开导航"</button>
+                                        <button class="command-example" data-command="朗读页面">"朗读页面"</button>
+                                        <button class="command-example" data-command="增大字体">"增大字体"</button>
+                                        <button class="command-example" data-command="高对比度">"高对比度"</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="voice-feedback" id="voiceFeedback">
+                                    <!-- 语音识别反馈 -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 点击区域放大 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <i class="fas fa-expand-alt"></i>
+                            </div>
+                            <h3 class="feature-title">点击区域放大</h3>
+                        </div>
+                        <p class="feature-description">
+                            放大交互元素的点击区域，帮助运动障碍用户更轻松地点击目标。
+                        </p>
+                        <div class="feature-controls">
+                            <div class="touch-target-demo">
+                                <div class="touch-target-normal">
+                                    <p>正常点击区域：</p>
+                                    <button class="demo-btn normal-btn">按钮</button>
+                                </div>
+                                
+                                <div class="touch-target-enhanced">
+                                    <p>增强点击区域：</p>
+                                    <button class="demo-btn enhanced-btn">按钮</button>
+                                </div>
+                            </div>
+                            
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="touchTargetToggle" aria-label="切换点击区域放大">
+                                <span class="slider"></span>
+                                <span class="toggle-label">启用点击区域放大</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- 手势简化 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <i class="fas fa-hand-pointer"></i>
+                            </div>
+                            <h3 class="feature-title">手势简化</h3>
+                        </div>
+                        <p class="feature-description">
+                            简化复杂手势操作，将滑动、捏合等手势替换为简单的点击或按钮操作。
+                        </p>
+                        <div class="feature-demo">
+                            <div class="gesture-demo">
+                                <div class="gesture-option">
+                                    <h4>复杂手势：</h4>
+                                    <div class="gesture-complex">
+                                        <div class="swipe-demo">
+                                            <i class="fas fa-arrows-alt-h"></i>
+                                            <p>左右滑动切换</p>
+                                        </div>
+                                        <div class="pinch-demo">
+                                            <i class="fas fa-compress-alt"></i>
+                                            <p>双指捏合缩放</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="gesture-option">
+                                    <h4>简化操作：</h4>
+                                    <div class="gesture-simple">
+                                        <button class="simple-btn">
+                                            <i class="fas fa-chevron-left"></i>
+                                            上一项
+                                        </button>
+                                        <button class="simple-btn">
+                                            <i class="fas fa-chevron-right"></i>
+                                            下一项
+                                        </button>
+                                        <button class="simple-btn">
+                                            <i class="fas fa-search-plus"></i>
+                                            放大
+                                        </button>
+                                        <button class="simple-btn">
+                                            <i class="fas fa-search-minus"></i>
+                                            缩小
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 认知辅助 -->
+        <section id="cognitive" class="accessibility-section" aria-labelledby="cognitive-heading">
+            <h2 id="cognitive-heading" class="section-heading">
+                <i class="fas fa-brain"></i>
+                认知辅助功能
+            </h2>
+            
+            <div class="section-content">
+                <div class="feature-grid">
+                    <!-- 简化界面 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <i class="fas fa-stream"></i>
+                            </div>
+                            <h3 class="feature-title">简化界面</h3>
+                        </div>
+                        <p class="feature-description">
+                            减少视觉干扰，突出核心内容，降低认知负荷。
+                        </p>
+                        <div class="feature-demo">
+                            <div class="simplify-demo">
+                                <div class="demo-before">
+                                    <h4>常规界面：</h4>
+                                    <div class="complex-interface">
+                                        <div class="complex-header">复杂的页面头部</div>
+                                        <div class="complex-content">
+                                            <div class="advertisement">广告横幅</div>
+                                            <div class="multiple-options">多个选项和按钮</div>
+                                            <div class="extra-info">额外信息面板</div>
+                                            <div class="main-content">主要内容区域</div>
+                                            <div class="side-panel">侧边栏面板</div>
+                                        </div>
+                                        <div class="complex-footer">复杂的页脚</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="demo-after">
+                                    <h4>简化界面：</h4>
+                                    <div class="simple-interface">
+                                        <div class="simple-header">简洁的头部</div>
+                                        <div class="simple-content">
+                                            <div class="main-content">主要内容区域</div>
+                                        </div>
+                                        <div class="simple-footer">简洁的页脚</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="simplifyToggle" aria-label="切换简化界面">
+                                <span class="slider"></span>
+                                <span class="toggle-label">启用简化界面</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- 阅读辅助 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <i class="fas fa-book-reader"></i>
+                            </div>
+                            <h3 class="feature-title">阅读辅助</h3>
+                        </div>
+                        <p class="feature-description">
+                            提供文本朗读、分段落显示、重点突出等功能，帮助阅读障碍用户理解内容。
+                        </p>
+                        <div class="feature-demo">
+                            <div class="reading-assist-demo">
+                                <div class="demo-text" id="demoText">
+                                    <p>这是一个示例文本段落，展示阅读辅助功能。无障碍设计（Accessibility Design）是指设计产品、设备、服务或环境时，考虑所有用户的需求，包括有各种障碍的人群。</p>
+                                    <p>良好的无障碍设计不仅帮助残障人士，也使所有用户受益。例如，字幕不仅帮助听障用户，也在嘈杂环境中帮助所有用户。</p>
+                                </div>
+                                
+                                <div class="reading-controls">
+                                    <button id="highlightText" class="reading-btn" aria-label="高亮重点内容">
+                                        <i class="fas fa-highlighter"></i>
+                                        高亮重点
+                                    </button>
+                                    <button id="segmentText" class="reading-btn" aria-label="分段显示文本">
+                                        <i class="fas fa-paragraph"></i>
+                                        分段显示
+                                    </button>
+                                    <button id="readAloud" class="reading-btn" aria-label="朗读文本">
+                                        <i class="fas fa-volume-up"></i>
+                                        朗读文本
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 记忆辅助 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <i class="fas fa-history"></i>
+                            </div>
+                            <h3 class="feature-title">记忆辅助</h3>
+                        </div>
+                        <p class="feature-description">
+                            提供操作历史记录、表单自动保存、上下文提示等功能，帮助记忆障碍用户。
+                        </p>
+                        <div class="feature-demo">
+                            <div class="memory-assist-demo">
+                                <div class="history-demo">
+                                    <h4>操作历史：</h4>
+                                    <ul class="history-list" id="historyList">
+                                        <li>10:15 调整字体大小为大</li>
+                                        <li>10:12 启用高对比度模式</li>
+                                        <li>10:10 朗读页面内容</li>
+                                        <li>10:05 访问视觉辅助功能</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="form-demo">
+                                    <h4>表单自动保存：</h4>
+                                    <div class="auto-save-form">
+                                        <input type="text" 
+                                               id="demoInput" 
+                                               placeholder="输入内容..."
+                                               aria-label="示例输入框">
+                                        <div class="save-status" id="saveStatus">
+                                            <!-- 保存状态显示 -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 导航提示 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <i class="fas fa-map-signs"></i>
+                            </div>
+                            <h3 class="feature-title">导航提示</h3>
+                        </div>
+                        <p class="feature-description">
+                            提供明确的当前位置指示、操作步骤引导和返回路径，减少用户在界面中迷失的可能性。
+                        </p>
+                        <div class="feature-demo">
+                            <div class="navigation-demo">
+                                <div class="breadcrumb-demo">
+                                    <nav aria-label="面包屑导航">
+                                        <ol class="breadcrumb">
+                                            <li><a href="#">首页</a></li>
+                                            <li><a href="#">无障碍设计</a></li>
+                                            <li aria-current="page">认知辅助功能</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                                
+                                <div class="step-guide">
+                                    <h4>操作步骤指南：</h4>
+                                    <div class="steps">
+                                        <div class="step active">
+                                            <span class="step-number">1</span>
+                                            <span class="step-text">选择辅助功能</span>
+                                        </div>
+                                        <div class="step">
+                                            <span class="step-number">2</span>
+                                            <span class="step-text">调整设置参数</span>
+                                        </div>
+                                        <div class="step">
+                                            <span class="step-number">3</span>
+                                            <span class="step-text">测试效果</span>
+                                        </div>
+                                        <div class="step">
+                                            <span class="step-number">4</span>
+                                            <span class="step-text">保存设置</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 测试工具 -->
+        <section id="testing" class="accessibility-section" aria-labelledby="testing-heading">
+            <h2 id="testing-heading" class="section-heading">
+                <i class="fas fa-vial"></i>
+                无障碍测试工具
+            </h2>
+            
+            <div class="section-content">
+                <div class="feature-grid">
+                    <!-- 模拟体验 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <i class="fas fa-user-injured"></i>
+                            </div>
+                            <h3 class="feature-title">障碍模拟体验</h3>
+                        </div>
+                        <p class="feature-description">
+                            模拟不同类型的障碍，帮助开发者理解用户需求，测试设计的可访问性。
+                        </p>
+                        <div class="feature-controls">
+                            <div class="simulation-options">
+                                <div class="simulation-option">
+                                    <input type="checkbox" id="simBlur" class="sim-checkbox">
+                                    <label for="simBlur" class="sim-label">
+                                        <i class="fas fa-eye"></i>
+                                        视力模糊
+                                    </label>
+                                </div>
+                                
+                                <div class="simulation-option">
+                                    <input type="checkbox" id="simTunnel" class="sim-checkbox">
+                                    <label for="simTunnel" class="sim-label">
+                                        <i class="fas fa-circle"></i>
+                                        管状视野
+                                    </label>
+                                </div>
+                                
+                                <div class="simulation-option">
+                                    <input type="checkbox" id="simColorBlind" class="sim-checkbox">
+                                    <label for="simColorBlind" class="sim-label">
+                                        <i class="fas fa-palette"></i>
+                                        色盲模拟
+                                    </label>
+                                </div>
+                                
+                                <div class="simulation-option">
+                                    <input type="checkbox" id="simTremor" class="sim-checkbox">
+                                    <label for="simTremor" class="sim-label">
+                                        <i class="fas fa-hand-rock"></i>
+                                        手部颤抖
+                                    </label>
+                                </div>
+                                
+                                <div class="simulation-option">
+                                    <input type="checkbox" id="simDyslexia" class="sim-checkbox">
+                                    <label for="simDyslexia" class="sim-label">
+                                        <i class="fas fa-font"></i>
+                                        阅读障碍
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <button id="applySimulation" class="simulation-btn" aria-label="应用模拟设置">
+                                <i class="fas fa-play"></i>
+                                开始模拟体验
+                            </button>
+                            
+                            <button id="resetSimulation" class="simulation-btn secondary" aria-label="重置模拟设置">
+                                <i class="fas fa-redo"></i>
+                                重置模拟
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 无障碍检查 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h3 class="feature-title">无障碍检查器</h3>
+                        </div>
+                        <p class="feature-description">
+                            自动检查页面的可访问性问题，并提供修复建议。
+                        </p>
+                        <div class="feature-demo">
+                            <div class="accessibility-checker">
+                                <button id="runAccessibilityCheck" class="check-btn" aria-label="运行无障碍检查">
+                                    <i class="fas fa-search"></i>
+                                    检查无障碍问题
+                                </button>
+                                
+                                <div class="check-results" id="checkResults">
+                                    <!-- 检查结果将显示在这里 -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 对比度检查 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <i class="fas fa-contrast"></i>
+                            </div>
+                            <h3 class="feature-title">对比度检查器</h3>
+                        </div>
+                        <p class="feature-description">
+                            检查文本与背景的对比度是否符合WCAG标准，确保可读性。
+                        </p>
+                        <div class="feature-demo">
+                            <div class="contrast-checker">
+                                <div class="contrast-sample">
+                                    <div class="contrast-text" id="contrastText">
+                                        示例文本
+                                    </div>
+                                    <div class="contrast-info">
+                                        <div class="contrast-ratio" id="contrastRatio">
+                                            对比度: 未计算
+                                        </div>
+                                        <div class="contrast-status" id="contrastStatus">
+                                            <!-- 对比度状态 -->
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="contrast-controls">
+                                    <div class="color-picker">
+                                        <label for="textColorPicker">文本颜色：</label>
+                                        <input type="color" id="textColorPicker" value="#000000">
+                                    </div>
+                                    
+                                    <div class="color-picker">
+                                        <label for="bgColorPicker">背景颜色：</label>
+                                        <input type="color" id="bgColorPicker" value="#FFFFFF">
+                                    </div>
+                                </div>
+                                
+                                <button id="checkContrast" class="check-btn" aria-label="检查对比度">
+                                    <i class="fas fa-check-circle"></i>
+                                    检查对比度
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 键盘导航测试 -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <i class="fas fa-keyboard"></i>
+                            </div>
+                            <h3 class="feature-title">键盘导航测试</h3>
+                        </div>
+                        <p class="feature-description">
+                            测试页面是否可以通过键盘完全访问，检查Tab顺序和焦点管理。
+                        </p>
+                        <div class="feature-demo">
+                            <div class="keyboard-test">
+                                <div class="keyboard-test-info">
+                                    <p>当前焦点元素：<span id="currentFocus">无</span></p>
+                                    <p>Tab顺序：<span id="tabOrder">未开始</span></p>
+                                </div>
+                                
+                                <div class="keyboard-test-area">
+                                    <button class="test-element" tabindex="0" data-test="1">元素 1</button>
+                                    <input type="text" class="test-element" tabindex="0" placeholder="输入框" data-test="2">
+                                    <select class="test-element" tabindex="0" data-test="3">
+                                        <option>选项 1</option>
+                                        <option>选项 2</option>
+                                    </select>
+                                    <button class="test-element" tabindex="0" data-test="4">元素 4</button>
+                                </div>
+                                
+                                <button id="startKeyboardTest" class="test-btn" aria-label="开始键盘导航测试">
+                                    <i class="fas fa-play"></i>
+                                    开始测试
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 屏幕阅读器输出区域 -->
+    <div class="screen-reader-output" id="screenReaderOutput" aria-live="assertive" aria-atomic="true">
+        <!-- 屏幕阅读器将在这里输出内容 -->
+    </div>
+
+    <!-- 语音控制界面 -->
+    <div class="voice-control-interface" id="voiceControlInterface" aria-hidden="true">
+        <div class="voice-control-container">
+            <div class="voice-control-header">
+                <h3>语音控制</h3>
+                <button class="close-voice-control" id="closeVoiceControl" aria-label="关闭语音控制">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="voice-control-body">
+                <div class="voice-visualizer" id="voiceVisualizer">
+                    <!-- 语音可视化 -->
+                </div>
+                <div class="voice-instruction" id="voiceInstruction">
+                    请说出您的命令...
+                </div>
+                <div class="voice-commands-list">
+                    <h4>可用命令：</h4>
+                    <ul>
+                        <li>"打开 [功能名称]" - 打开特定功能</li>
+                        <li>"朗读页面" - 朗读当前页面</li>
+                        <li>"增大/减小字体" - 调整字体大小</li>
+                        <li>"高对比度" - 切换对比度模式</li>
+                        <li>"帮助" - 显示帮助信息</li>
+                        <li>"关闭" - 关闭语音控制</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 阅读辅助线 -->
+    <div class="reading-guide" id="readingGuide" aria-hidden="true">
+        <div class="guide-line"></div>
+    </div>
+
+    <script src="accessibility.js"></script>
+</body>
+</html>
